@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/*
+ * Luxe Support — design tokens.
+ * A committed dark, warm palette: near-black "ink", ivory text, and a single
+ * restrained gold accent. Serif display face for headings, clean sans for body.
+ */
+@theme {
+  --color-ink: #0c0b0a;
+  --color-panel: #151310;
+  --color-panel-2: #1d1a16;
+  --color-ivory: #ece7dd;
+  --color-muted: #9c9488;
+  --color-faint: #6d675d;
+  --color-gold: #c8a15a;
+  --color-gold-soft: #dcc084;
+  --color-hair: #2b2721;
+
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  /* Subtle warm radial vignette so flat panels feel lit. */
+  background-image:
+    radial-gradient(
+      1200px 600px at 80% -10%,
+      rgba(200, 161, 90, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 0% 100%,
+      rgba(200, 161, 90, 0.05),
+      transparent 55%
+    );
+  background-attachment: fixed;
+}
+
+/* --- Reusable component classes --- */
+@layer components {
+  .lux-heading {
+    font-family: var(--font-serif);
+    letter-spacing: 0.01em;
+  }
+
+  .lux-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.7rem;
+    color: var(--color-gold);
+  }
+
+  .lux-panel {
+    background-color: color-mix(in srgb, var(--color-panel) 90%, transparent);
+    border: 1px solid var(--color-hair);
+    backdrop-filter: blur(6px);
+  }
+
+  .lux-input {
+    width: 100%;
+    background-color: var(--color-ink);
+    border: 1px solid var(--color-hair);
+    border-radius: 0.5rem;
+    padding: 0.7rem 0.9rem;
+    color: var(--color-ivory);
+    outline: none;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .lux-input::placeholder {
+    color: var(--color-faint);
+  }
+  .lux-input:focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-gold) 40%, transparent);
+  }
+
+  .lux-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition:
+      transform 0.08s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      opacity 0.15s ease;
+    cursor: pointer;
+  }
+  .lux-btn:active {
+    transform: translateY(1px);
+  }
+  .lux-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .lux-btn-gold {
+    background: linear-gradient(
+      180deg,
+      var(--color-gold-soft),
+      var(--color-gold)
+    );
+    color: #1c150b;
+  }
+  .lux-btn-gold:hover:not(:disabled) {
+    filter: brightness(1.06);
+  }
+
+  .lux-btn-ghost {
+    background-color: transparent;
+    border: 1px solid var(--color-hair);
+    color: var(--color-ivory);
+  }
+  .lux-btn-ghost:hover:not(:disabled) {
+    border-color: var(--color-gold);
+    color: var(--color-gold-soft);
+  }
+}
+
+/* Refined thin scrollbars. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-hair) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-hair);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-faint);
+}
